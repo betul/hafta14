@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Todos from "./Todos";
 
 function App() {
@@ -10,13 +10,17 @@ function App() {
     setCount((c) => c + 1);
   };
 
-  const addTodo = () => {
-    setTodos( (t) => [...t, "Yeni iş" + count] );
-  };
+  const addTodo = useCallback( () => {
+    setTodos( (t) => [...t, "Yeni iş"] )
+  }, [todos] )
+
+  const kisi = useMemo( ()=>{
+    return {ad: "Ahmet", soyad:"Yılmaz"}
+  }, [todos]  )
 
   return (
     <>
-      <Todos yapilacakIsler={todos} isEkle={addTodo} />
+      <Todos yapilacakIsler={todos} isEkle={addTodo} kisi={kisi}  />
       <hr />
       <div>
         Sayaç: {count}
